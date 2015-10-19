@@ -16,3 +16,18 @@ directly render within github of with nbviewer.
 
 The notebook will call the different scripts sored on a sub folder called
 *scripts*.
+
+## Needed libraries to run the scripts:
+
+### Python 
+* [python3](https://www.python.org/)
+* [ipython-notebook](https://ipython.org/notebook.html)
+
+### Python libraries
+* [numpy](http://www.numpy.org/)
+* [pandas](http://pandas.pydata.org/)
+* [shapely](https://github.com/Toblerity/Shapely)
+* [matplotlib](http://matplotlib.org/)
+
+If you want to use the connection to the `PostgreSQL` database, just drop me
+a line!

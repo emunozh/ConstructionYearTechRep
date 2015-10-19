@@ -22,7 +22,8 @@ def plotBuildings(Buildings, iteration=0, legend=True):
         else:
             fcol = "black"
         mpl_poly = Polygon(
-            np.array(Buildings.loc[b, "geometry"].exterior), facecolor=fcol, lw=0, alpha=0.7)
+            np.array(Buildings.loc[b, "geometry"].exterior),
+            facecolor=fcol, lw=0, alpha=0.7)
         ax.add_patch(mpl_poly)
     ax.set_title("Selected Buildings (iter={})".format(iteration))
     ax.relim()
@@ -30,12 +31,13 @@ def plotBuildings(Buildings, iteration=0, legend=True):
     ax.set_ylabel("Northing")
     ax.set_xlabel("Easting")
     if legend:
-        ax.legend(("unknown BJA", "known BJA"), loc="best")
+        ax.legend(("known BJA", "unknown BJA"), loc="best")
     fig.savefig("../FIGURES/buildings_{}.png".format(iteration),
                 bbox_inches="tight")
 
 
 def plotNeighbours(Buildings, N, ID):
+    """plot the neighbours and their rank."""
     fig, ax = pl.subplots(figsize=(8, 8), ncols=1)
     ax2 = fig.add_axes([0.95, 0.13, 0.05, 0.7])
     cmap = pl.cm.Oranges
@@ -73,3 +75,44 @@ def plotNeighbours(Buildings, N, ID):
     cb.set_label('Neighbour rank')
     fig.savefig(
         "../FIGURES/buildings_neighbour_rank.png", bbox_inches="tight")
+
+
+def plotByear(Buildings, iteration=0):
+    """plot the construction years."""
+    fig, ax = pl.subplots(figsize=(8, 8), ncols=1)
+    ax2 = fig.add_axes([0.95, 0.13, 0.05, 0.7])
+    cmap = pl.cm.brg
+    cmaplist = [cmap(i) for i in range(cmap.N)]
+    cmap = cmap.from_list('Custom cmap', cmaplist, cmap.N)
+    bounds = np.linspace(Buildings.loc[:, "bja"].min(),
+                         Buildings.loc[:, "bja"].max(), 10)
+    norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+    cmaplist = [cmap(i) for i in range(cmap.N)]
+    cmaplist[0] = (.5, .5, .5, 1.0)
+
+    for b in Buildings.index:
+        year_index = (Buildings.loc[b, "bja"] - 
+            Buildings.loc[:, "bja"].min()) / (Buildings.loc[:, "bja"].max() - 
+                Buildings.loc[:, "bja"].min())
+        if np.isnan(year_index):
+            cmap_index = 0
+        else:
+            cmap_index = int(year_index * 256) - 1
+
+        mpl_poly = Polygon(
+            np.array(Buildings.loc[b, "geometry"].exterior),
+            facecolor=cmaplist[cmap_index], lw=0, alpha=0.7)
+        ax.add_patch(mpl_poly)
+    ax.set_title("Construction Year (iter={})".format(iteration))
+    ax.relim()
+    ax.autoscale()
+    ax.set_ylabel("Northing")
+    ax.set_xlabel("Easting")
+
+    cb = mpl.colorbar.ColorbarBase(
+        ax2, cmap=cmap, norm=norm, spacing='proportional',
+        ticks=bounds, boundaries=bounds, format='%0.0f')
+    cb.set_label('COnstruction year')
+    fig.savefig(
+        "../FIGURES/buildings_constructionYear_{}.png".format(iteration),
+        bbox_inches="tight")

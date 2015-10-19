@@ -25,8 +25,9 @@ K = 30
 def _fetchBuildings():
     """fetch buildings from PostgeSQL database."""
 
-    W = "WHERE p.statgeb in ({0}) AND ch.gfk in ({1})".format(SG, RK)
-    Q = """SELECT ch.uuid, ch.baw, ch.bja, ch.stadtteil, ch.sqm,
+    # W = "WHERE p.statgeb in ({0}) AND ch.gfk in ({1})".format(SG, RK)
+    W = "WHERE p.statgeb in ({0})".format(SG)
+    Q = """SELECT ch.uuid, ch.baw, ch.gfk, ch.bja, ch.stadtteil, ch.sqm,
                     ch.shell_wall, ch.shell,
                     ch.neighbours,
                     ST_AsText(ch.wkb_geometry_simple::geometry),
@@ -39,8 +40,8 @@ def _fetchBuildings():
     geoData = GeoData(PARENT, specificQ=Q)
     Buildings = pd.DataFrame(geoData.data)
     geoData.closeDB()
-    columns = ["uuid", "baw", "bja", "stadtteil", "sqm", "shell_wall", "shell",
-               "neighbours", "geometry", "statgeb"]
+    columns = ["uuid", "baw", "gfk", "bja", "stadtteil", "sqm", "shell_wall",
+               "shell", "neighbours", "geometry", "statgeb"]
     Buildings.columns = columns
     Buildings = Buildings.set_index("uuid")
     Buildings.loc[Buildings.bja == 0, "bja"] = np.nan

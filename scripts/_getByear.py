@@ -6,22 +6,23 @@ import numpy as np
 
 # import local libraries
 from scripts._estimateByearMedian import _estimateByearMedian as estimateByear
-#from scripts._estimateByearRank import _estimateByearRank as estimateByear
+# from scripts._estimateByearRank import _estimateByearRank as estimateByear
 from scripts.plots import plotBuildings
+from scripts.plots import plotByear
 
 # define global variables
 MAX_ITERATIONS = 20
 
 
 def _getByear(buildings, plot=True):
-    """Estimate the construction year iteratively for of all 
+    """Estimate the construction year iteratively for of all
     buildings or until a maximum number of iterations is reached.
     Returns the buildings data frame."""
     missing_byear = sum(np.isnan(buildings['bja']))
     improvement = True
     iteration = 0
     while missing_byear >= 1 and improvement and\
-          iteration <= MAX_ITERATIONS:
+            iteration <= MAX_ITERATIONS:
         print("iter = ", iteration)
         iteration += 1
         buildings.loc[
@@ -34,4 +35,5 @@ def _getByear(buildings, plot=True):
         if plot:
             plotBuildings(buildings, iteration=iteration,
                           legend=False)
+            plotByear(buildings, iteration=iteration)
     return buildings
