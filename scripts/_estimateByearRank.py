@@ -12,9 +12,10 @@ def _estimateByearRank(row, buildings):
     """Compute the missing construction year by ranking all
     neighbours based on their attributes and euclidean distance.
     Returns the estimated construction year"""
-    N = _getNeighbours(row["neighbours"], buildings, row.index)
+    N = _getNeighbours(row["neighbours"], buildings, row.name)
     if len(N) >= 1:
-        estimatedYear = N.loc[N.rank == min(N.rank), "bja"]
+        estimatedYear = N.loc[N.rank == min(N.rank), "bja"].tolist()
+        estimatedYear = estimatedYear[0]
         if estimatedYear > 0:
             year = estimatedYear
         else:

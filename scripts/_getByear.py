@@ -5,8 +5,8 @@
 import numpy as np
 
 # import local libraries
-from scripts._estimateByearMedian import _estimateByearMedian as estimateByear
-# from scripts._estimateByearRank import _estimateByearRank as estimateByear
+# from scripts._estimateByearMedian import _estimateByearMedian as estimateByear
+from scripts._estimateByearRank import _estimateByearRank as estimateByear
 from scripts.plots import plotBuildings
 from scripts.plots import plotByear
 

@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 import pandas as pd
-import numpy as np
 
 
 def _getNeighbours(uuid, Buildings, ID):
@@ -15,7 +14,7 @@ def _getNeighbours(uuid, Buildings, ID):
     else:
         # select neighbours
         N = Buildings.loc[mask, cols]
-        
+
         # (1) BAW
         Buildings.loc[Buildings.baw.isnull(), "baw"] = "n.a"
         if Buildings.loc[ID, "baw"] != "n.a":
@@ -25,27 +24,27 @@ def _getNeighbours(uuid, Buildings, ID):
         else:
             N.loc[N.baw.isnull(), "baw"] = 0
             N.loc[N.baw != 0, "baw"] = 1
-        
+
         # (2) GFK
         N.gfk = N.gfk == Buildings.loc[ID, "gfk"]
         N.gfk = pd.get_dummies(N.gfk)
-        
+
         # (3) SQM
         sqmDif = abs(N.sqm - Buildings.loc[ID, "sqm"])
         N.sqm = sqmDif / max(sqmDif)
-        
+
         # (4) Shell
         shellDif = abs(N.shell_wall -
                        Buildings.loc[ID, "shell_wall"])
         N.shell_wall = shellDif / max(shellDif)
-        
+
         # (5) Distance
         N.distance = [abs(a.distance(
             Buildings.loc[ID, "geometry"])) for a in N.geometry]
         N.distance = N.distance / max(N.distance)
-        
+
         # = Rank
-        N.rank = N.loc[:, ["baw", "sqm",
+        N.rank = N.loc[:, ["baw", "gfk", "sqm",
                            "shell_wall", "distance"]].sum(axis=1)
         N.loc[:, "rank"] = N.rank / max(N.rank)
         return N
