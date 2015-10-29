@@ -16,13 +16,8 @@ RK = ", ".join(["'{}'".format(k) for k in GFK_key.keys() if GFK_key[k][3]])
 TABLE = 'neoalkis'
 PARENT = 'statistische_gebiete_utm'
 
-# neighbourhood radius
-R = 500
-# k number of neighbours
-K = 30
 
-
-def _fetchBuildings():
+def _fetchBuildings(saveBuildings=True):
     """fetch buildings from PostgeSQL database."""
 
     # W = "WHERE p.statgeb in ({0}) AND ch.gfk in ({1})".format(SG, RK)
@@ -46,5 +41,6 @@ def _fetchBuildings():
     Buildings = Buildings.set_index("uuid")
     Buildings.loc[Buildings.bja == 0, "bja"] = np.nan
     Buildings.geometry = Buildings.geometry.apply(loads)
-    Buildings.to_hdf("data.h5", "Buildings", mode="w")
+    if saveBuildings:
+        Buildings.to_hdf("data.h5", "Buildings", mode="w")
     return Buildings

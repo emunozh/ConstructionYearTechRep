@@ -116,3 +116,13 @@ def plotByear(Buildings, iteration=0):
     fig.savefig(
         "../FIGURES/buildings_constructionYear_{}.png".format(iteration),
         bbox_inches="tight")
+    
+def plotPerformance(simulated, observed):
+    fig, ax = pl.subplots(figsize=(8, 8), ncols=1)
+    ax.scatter(observed, simulated)
+    x = np.linspace(min(simulated), max(simulated))
+    ax.plot(x, x, lw=2, color="red")
+    ax.set_title("performance of the model")
+    ax.set_ylabel("Estimated")
+    ax.set_xlabel("Observed")
+    fig.savefig("../FIGURES/performance.png", bbox_inches="tight")
