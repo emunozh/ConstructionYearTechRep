@@ -639,22 +639,69 @@ but rather on a east-west axis. A island of buildings arranged from north to
 south is rather unlikely for this particular urban setting. The introduction of
 street data into the algorithm could help with this inconsistencies.\\
 
-\subsection{performance of the Mechanism}
+\subsection{Performance of the Mechanism}
 
 In this sub section we discuss and present a method to asses the performance of
 the developed mechanism for the estimation of missing construction years within
 digital building stock databases. The code for this performance quantification
 method is also submitted as an Ipython Notebook as part of the supplementary
-material to this paper\footnote{\url{}<++>}<++>
+material to this
+paper\footnote{\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance.ipynb}}.\\
+
+In order to quantify the performance of the algorithm we perform a second
+estimation of construction years. For this second estimation we select a random
+1\% of buildings with a known construction year from the original sample and
+change them to unknown values. After the estimation procedure we compare the
+estimated years for the random sub sample with the original known construction
+years. Figure~\ref{fig:performance}a shows the relationship between observed and
+estimated construction years for the randomly selected 1\% buildings and the
+pearson R coefficient.\\
+
+We compare the performance of the mechanism with a simple linear regression
+model\footnote{\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance\%20OLS.ipynb}}.
+The results form the linear regression model are displayed on
+Figure~\ref{fig:performance}b. This plot is analogue to the plot (a) showing
+the performance of the diffusion mechanism.\\
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.8\textwidth]{FIGURES/performance.png}
+    \begin{tabular}{cc}
+        \textbf{(a)} diffusion algorithm&
+        \textbf{(b)} linear regression\\
+    \includegraphics[width=0.5\linewidth]{FIGURES/performance.png}&
+    \includegraphics[width=0.5\linewidth]{FIGURES/performance-ols.png}\\
+    \end{tabular}
     \caption{Performance of the algorithm showing some estimated construction
         years and the real ``observed'' construction years
-}\label{fig:rank}
+}\label{fig:performance}
 \end{figure}
 
+\begin{table}[htb]
+    \centering
+    \caption{Performance of the diffusion and linear regression
+    mechanisms}\label{tab:performance}
+    \begin{tabular}{lrrr}
+        \toprule
+        \textbf{Method} & \textbf{Pearson R$^2$} &
+        \textbf{Mean} & \textbf{SD}\\
+        \midrule
+        Diffusion           & 0.47 & 18.09 & 26.89\\
+        Linear Regression   & 0.54 & 17.95 & 18.08\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The performance results for the developed mechanism are unsatisfactory. There
+is a clear bias towards newer construction years but also a big spread in the
+estimation. The results from the linear model are better that the diffusion
+model but equally unsatisfactory.\\
+
+Many heat estimation models use a neighborhood based mechanism for the
+estimation of heat
+demand~\cite{Hermelink.2011,MunozH.2011.msc,MunozH.2015.MEQ,MunozH.2014.IJM}.
+This type of models need to incorporate the uncertainties attached to this type
+of estimation mechanism into the overall assessment. Better yet, we need better
+methods for the estimation of missing data within urban stock datasets.\\
 
 \subsection{On How to Improve the Mechanism}
 %TODO: Expand
@@ -736,5 +783,22 @@ fashion simulation results from a diffusion model could be benchmarked to
 aggregated distributions.\\
 
 \section{Appendix:}
- 
-See \url{https://github.com/emunozh/ConstructionYearTechRep}
+
+See \url{https://github.com/emunozh/ConstructionYearTechRep} for the entire
+repository.\\ 
+
+You can clone the repository to run in locally via:\\
+\verb|git clone https://github.com/emunozh/ConstructionYearTechRep.git|\\
+
+The \textbf{mechanise} description can be read directly on github under:\\
+\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Main.ipynb}
+\\
+or via nbviewer under:\\
+\url{http://nbviewer.ipython.org/github/emunozh/ConstructionYearTechRep/blob/master/Main.ipynb}.\\
+
+The \textbf{performance} of the mechanism can be read directly on github
+under:\\
+\url{http://nbviewer.ipython.org/github/emunozh/ConstructionYearTechRep/blob/master/Performance.ipynb}
+\\
+or via nbviewer under:\\
+\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance.ipynb}

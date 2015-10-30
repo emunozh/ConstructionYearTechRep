@@ -116,8 +116,9 @@ def plotByear(Buildings, iteration=0):
     fig.savefig(
         "../FIGURES/buildings_constructionYear_{}.png".format(iteration),
         bbox_inches="tight")
+
     
-def plotPerformance(simulated, observed):
+def plotPerformanceMPL(simulated, observed):
     fig, ax = pl.subplots(figsize=(8, 8), ncols=1)
     ax.scatter(observed, simulated)
     x = np.linspace(min(simulated), max(simulated))
@@ -126,3 +127,13 @@ def plotPerformance(simulated, observed):
     ax.set_ylabel("Estimated")
     ax.set_xlabel("Observed")
     fig.savefig("../FIGURES/performance.png", bbox_inches="tight")
+
+
+def plotPerformance(plotData, sufix=""):
+    import seaborn as sns
+    sns.set(style="darkgrid")
+
+    g = sns.jointplot("Observed", "Estimated", data=plotData,
+                      ylim=(1850,2020), xlim=(1850,2020),
+                      kind="reg", color="r", size=8)
+    g.fig.savefig("../FIGURES/performance{}.png".format(sufix), bbox_inches="tight")
