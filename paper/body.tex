@@ -2,12 +2,12 @@
  
 The past years have seen a proliferation of urban models developed for the
 estimation of urban energy demand
-\citep{Calderon.2015,Mata.2014,MunozH.2014.IBPSA-JP,MunozH.2014.IJM,Chingcuanco.2012,Fracastoro.2011}.
+\cite{Calderon.2015,Mata.2014,MunozH.2014.IBPSA-JP,MunozH.2014.IJM,Chingcuanco.2012,Fracastoro.2011}.
 Space heating has a large share (in many cities of higher latitudes: the
 largest share) in urban energy demand. Space heating used to be estimated based
 on urban area typologies, which offer different settlement types associated
 with typical heat demands 
-\citep{Roth.1980,Roth.1981,Blesl.2002,Everding.2004,Blesl.2007,Genske.2009,Erhorn.2011}.
+\cite{Roth.1980,Roth.1981,Blesl.2002,Everding.2004,Blesl.2007,Genske.2009,Erhorn.2011}.
 These heat demands were based on empirical findings in case studies.\\
  
 The dominant methods for estimating space heating demand today focus on the
@@ -38,16 +38,16 @@ real-world processes of the past that gave rise to new construction in
 different parts of the city over the years.\\
 
 Diffusion models have been applied in urban simulation to the topic of
-technology diffusion. \citet{Linder.2013} uses a diffusion algorithm for the
+technology diffusion. \citeA{Linder.2013} uses a diffusion algorithm for the
 simulation of the installation of photovoltaic panels and its contribution to
-an increasing distributed energy supply system. \citet{Guseo.2008}
+an increasing distributed energy supply system. \citeA{Guseo.2008}
 implement a cellular automate framework for the simulation of innovation
 diffusion, the authors compare their model with an aggregate Generalized Bass
 Model (GBM), the author argue in favor of a disaggregated, simulation based
 approach.
 %(what type of technology do they look at?).
-\citet{Schmid.2008} develop an agent-based model to simulate the diffusion of
-biogas plants within Switzerland. \citet{Peters.2002} develop an agent-based
+\citeA{Schmid.2008} develop an agent-based model to simulate the diffusion of
+biogas plants within Switzerland. \citeA{Peters.2002} develop an agent-based
 model which incorporates the diffusion of a novel sanitation technology.\\
 
 The aim of our paper is to provide city and energy planners with a method to
@@ -57,11 +57,11 @@ infrastructure.\\
 
 There is a tendency towards the development of disaggregated simulation based
 models for the estimation and forecast of urban energy demand
-models~\citep{Balaras.2007, Kavgic.2010, Dascalaki.2010, Dascalaki.2011,
+models~\cite{Balaras.2007, Kavgic.2010, Dascalaki.2010, Dascalaki.2011,
 DallO.2012, Caputo.2013, Hrabovszky.2013, Kragh.2013, Singh.2013}
 %
 For a review of energy demand models see~\citet{Swan.2009} and 
-\citet{Keirstead.2012}, on both papers the authors argue in favor of disaggregated
+\citeA{Keirstead.2012}, on both papers the authors argue in favor of disaggregated
 simulation models for the estimation of energy demand.\\
  
 %A word on aggregation levels in models. In estimating urban heat demand, some
@@ -99,17 +99,17 @@ diffusion model.\\
 
 In the energy planning community the use of diffusion models are not very
 common. A good example is the use of technology diffusion algorithm for the
-simulation of the diffusion of PV panels in a large region~\citep{Linder.2013}.
-The use of a diffusion model is also used by~\citet{Bagchi.2013} for the
+simulation of the diffusion of PV panels in a large region~\citeA{Linder.2013}.
+The use of a diffusion model is also used by~\citeA{Bagchi.2013} for the
 simulation of a fire spread of an electricity grid. 
-\citet{Wittmann.2007} present an agent-based model developed for the simulation
+\citeA{Wittmann.2007} present an agent-based model developed for the simulation
 of energy supply systems under liberalized markets. Within this model the
 authors define a technology diffusion model based on the individual decisions
 of the model agents.
 %
 Many cellular automata models could be described as a diffusion algorithm, the
 use of a cellular automata for the forecasting of urban growth could be
-classified as diffusion models~\citep{Han.2009,Batty.1999}. \citet{Guseo.2008}
+classified as diffusion models~\cite{Han.2009,Batty.1999}. \citeA{Guseo.2008}
 makes use of a cellular automata model for the development of a technology
 diffusion model.\\
 
@@ -137,7 +137,7 @@ extremely easy.\\
 
 In this paper we apply the developed algorithm to a preprocessed data sample
 retrieved from the official digital cadastre of the city of Hamburg
-ALKIS~\citep{AdV.2008}. The selected data is from year 2010 because many of our
+ALKIS~\cite{AdV.2008}. The selected data is from year 2010 because many of our
 models use the year 2010 as a basis year. The entire digital cadastre is now
 open and can be freely downloaded from
 daten-hamburg.de\footnote{\url{http://daten-hamburg.de/geographie_geologie_geobasisdaten/ALKIS_Liegenschaftskarte/}}.
@@ -205,7 +205,7 @@ digital cadastre. With the available data we populate a PostgreSQL database and
 index the database with two columns containing geographical information. In
 order to simplify and increase the simulation speed of our models we abstract
 the detailed geometrical information of the individual
-buildings~\citep{MunozH.2015.MEQ}. The used data contains only the simplified
+buildings~\cite{MunozH.2015.MEQ}. The used data contains only the simplified
 geometrical information. The geometrical information of the buildings is used
 in the model to compute the minimal distance between objects (through the
 shapely package) and in the PostgreSQL database for the definition of
@@ -516,7 +516,7 @@ calibration method with a predefined training data set.
 %
 Notice that the building geometry depicted on Figure~\ref{fig:rank} is a
 simplified building geometry. This simplification process is described in
-detail by~\citet{MunozH.2015.MEQ}.\\
+detail by~\citeA{MunozH.2015.MEQ}.\\
 
 \begin{figure}[htpb]
     \centering
@@ -658,7 +658,7 @@ estimated construction years for the randomly selected 1\% buildings and the
 pearson R coefficient.\\
 
 We compare the performance of the mechanism with a simple linear regression
-model\footnote{\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance\%20OLS.ipynb}}.
+model\footnote{\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance OLS.ipynb}}.
 The results form the linear regression model are displayed on
 Figure~\ref{fig:performance}b. This plot is analogue to the plot (a) showing
 the performance of the diffusion mechanism.\\
@@ -668,7 +668,7 @@ the performance of the diffusion mechanism.\\
     \begin{tabular}{cc}
         \textbf{(a)} diffusion algorithm&
         \textbf{(b)} linear regression\\
-    \includegraphics[width=0.5\linewidth]{FIGURES/performance.png}&
+    \includegraphics[width=0.5\linewidth]{FIGURES/performance-bja.png}&
     \includegraphics[width=0.5\linewidth]{FIGURES/performance-ols.png}\\
     \end{tabular}
     \caption{Performance of the algorithm showing some estimated construction
@@ -698,7 +698,7 @@ model but equally unsatisfactory.\\
 
 Many heat estimation models use a neighborhood based mechanism for the
 estimation of heat
-demand~\cite{Hermelink.2011,MunozH.2011.msc,MunozH.2015.MEQ,MunozH.2014.IJM}.
+demand~\cite{Hermelink.2011,MunozH.2011.msc,MunozH.2014.IJM,MunozH.2015.MEQ}.
 This type of models need to incorporate the uncertainties attached to this type
 of estimation mechanism into the overall assessment. Better yet, we need better
 methods for the estimation of missing data within urban stock datasets.\\
@@ -740,65 +740,3 @@ possibility it to predefine a construction year distribution at an aggregate
 level and stochastically estimate the construction year of buildings with a
 monte-carlo method until the prior distribution is met varying a construction
 year weighting parameter.\\
-
-\section{Outlook: Further Refinements and Applications}
-%TODO: Expand
-
-In this paper we present a diffusion model developed for the estimation of
-unknown construction year of buildings described geometrically in space. We
-make use of well known python libraries for the definition of the functions
-used within the model. This model takes a predefine neighborhood (defines
-within a PostgreSQL database) and ranks each building in the neighbourhood
-based on the minimum euclidean distance to the building with an unknown
-construction year as well as the difference between buildings attributes.\\
-
-The estimation process is repeated iteratively until each building in the
-database has a known construction year. This process gives the model a
-diffusion character. We see the development of this model as a first step
-towards more elaborate urban models able to: (1) appropriately represent
-neighbourhoods for the simulation of diffusion processes and (2) a model able
-to estimate missing data from spatial databases, needed for the estimation of
-energy demand at a low level of aggregation.\\
-
-We aim to improve this method by developing an algorithm able to weight the
-individual characteristics of the buildings in a dynamic fashion based on
-contextual information of specific urban areas, both available at a micro level
-or aggregated at a statistical area, or available statistics of the national
-building stock.\\
-
-We also aim to further develop the definition of neighborhoods. We aim to
-develop an algorithm for the construction of neighborhoods, able to define
-dynamic neighborhoods with: (a) a clustering algorithm or (b) rich contextual
-spatial elements. The use of a clustering algorithm would allow us to construct
-more homogenic neighborhoods.\\
-
-The interaction between models working a different level of scale is also an
-interesting path to follow. As mentioned above, the use of predefined
-distributions available at an aggregate level as simulation benchmarks is an
-interesting path to follow not only for a static estimation of missing data but
-for the projection of simulations. \citet{MunozH.2015.IBPSA.Pop} project the
-retrofit of the building stock at an aggregate level and use these projections
-at benchmarks for the simulation of heat demand at a micro level. In a similar
-fashion simulation results from a diffusion model could be benchmarked to
-aggregated distributions.\\
-
-\section{Appendix:}
-
-See \url{https://github.com/emunozh/ConstructionYearTechRep} for the entire
-repository.\\ 
-
-You can clone the repository to run in locally via:\\
-\verb|git clone https://github.com/emunozh/ConstructionYearTechRep.git|\\
-
-The \textbf{mechanise} description can be read directly on github under:\\
-\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Main.ipynb}
-\\
-or via nbviewer under:\\
-\url{http://nbviewer.ipython.org/github/emunozh/ConstructionYearTechRep/blob/master/Main.ipynb}.\\
-
-The \textbf{performance} of the mechanism can be read directly on github
-under:\\
-\url{http://nbviewer.ipython.org/github/emunozh/ConstructionYearTechRep/blob/master/Performance.ipynb}
-\\
-or via nbviewer under:\\
-\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance.ipynb}

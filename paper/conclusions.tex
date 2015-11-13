@@ -1,0 +1,71 @@
+\section{Outlook: Further Refinements and Applications}
+%TODO: Expand
+
+In this paper we present a diffusion model developed for the estimation of
+unknown construction year of buildings described geometrically in space. We
+make use of well known python libraries for the definition of the functions
+used within the model. This model takes a predefine neighborhood (defines
+within a PostgreSQL database) and ranks each building in the neighbourhood
+based on the minimum euclidean distance to the building with an unknown
+construction year as well as the difference between buildings attributes.\\
+
+The estimation process is repeated iteratively until each building in the
+database has a known construction year. This process gives the model a
+diffusion character. We see the development of this model as a first step
+towards more elaborate urban models able to: (1) appropriately represent
+neighbourhoods for the simulation of diffusion processes and (2) a model able
+to estimate missing data from spatial databases, needed for the estimation of
+energy demand at a low level of aggregation.\\
+
+We aim to improve this method by developing an algorithm able to weight the
+individual characteristics of the buildings in a dynamic fashion based on
+contextual information of specific urban areas, both available at a micro level
+or aggregated at a statistical area, or available statistics of the national
+building stock.\\
+
+We also aim to further develop the definition of neighborhoods. We aim to
+develop an algorithm for the construction of neighborhoods, able to define
+dynamic neighborhoods with: (a) a clustering algorithm or (b) rich contextual
+spatial elements. The use of a clustering algorithm would allow us to construct
+more homogenic neighborhoods.\\
+
+The interaction between models working a different level of scale is also an
+interesting path to follow. As mentioned above, the use of predefined
+distributions available at an aggregate level as simulation benchmarks is an
+interesting path to follow not only for a static estimation of missing data but
+for the projection of simulations. \citet{MunozH.2015.IBPSA.Pop} project the
+retrofit of the building stock at an aggregate level and use these projections
+at benchmarks for the simulation of heat demand at a micro level. In a similar
+fashion simulation results from a diffusion model could be benchmarked to
+aggregated distributions.\\
+
+\section{Appendix:}
+
+See \url{https://github.com/emunozh/ConstructionYearTechRep} for the entire
+repository.\\ 
+
+You can clone the repository to run in locally via:\\
+\verb|git clone https://github.com/emunozh/ConstructionYearTechRep.git|\\
+
+The \textbf{mechanise} description can be read directly on github under:\\
+\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Main.ipynb}
+\\
+or via nbviewer under:\\
+\url{http://nbviewer.ipython.org/github/emunozh/ConstructionYearTechRep/blob/master/Main.ipynb}.\\
+
+The \textbf{performance} of the mechanism can be read directly on github
+under:\\
+\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance.ipynb}
+\\
+or via nbviewer under:\\
+\url{http://nbviewer.ipython.org/github/emunozh/ConstructionYearTechRep/blob/master/Performance.ipynb}
+
+
+The \textbf{OLS} performance can be read directly on github
+under:\\
+\url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Performance OLS.ipynb}
+\\
+or via nbviewer under:\\
+\url{http://nbviewer.ipython.org/github/emunozh/ConstructionYearTechRep/blob/master/Performance OLS.ipynb}
+
+
