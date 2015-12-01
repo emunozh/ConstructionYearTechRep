@@ -94,15 +94,15 @@ time.
 In the presented paper the iterative process does not represent time and is
 only present as a tool to achieve a state of convergence within the model.\\
 
-The focus on the diffusion terminology has the aim to facilitate the
+The focus on the diffusion terminology aims to facilitate the
 understanding of the developed algorithm for the estimation of missing years.
-The goal of this algorithm is the estimation of missing construction years by
-selecting a similar building within a given radius, the ``know'' construction
+The goal of this algorithm is to estimate missing construction years by
+selecting a similar building within a given radius, the ``known'' construction
 years propagate in space until every building has a ``known'' construction
 year. This propagation of years gives our algorithm the characteristics of a
 diffusion model.\\
 
-In the energy planning community the use of diffusion models are not very
+In the energy planning community the use of diffusion models is not very
 common. A good example is the use of technology diffusion algorithm for the
 simulation of the diffusion of PV panels in a large region~\citeA{Linder.2013}.
 The use of a diffusion model is also used by~\citeA{Bagchi.2013} for the
@@ -130,7 +130,7 @@ framework.\\
 
 For the development of the model we make use of the python language, we see
 python as the de-facto language for any simulation dealing with spatial
-referenced objects. De model development in the python language allows us to
+referenced objects. The model development in the python language allows us to
 use powerful tools like the PostgreSQL database without much difficulty. At the
 same time the language offers powerful libraries for data manipulation
 (pandas) and for spatial objects (shapely). The use of the developed functions
@@ -153,8 +153,8 @@ building stock.
 %
 The data set describing the building stock contains information about every
 single building in the city. Each building is represented in space with an
-accurate geometry of its perimeter ans some attributes like: building use,
-construction type of construction year (see Table~\ref{tab:attributes}). The
+accurate geometry of its perimeter and some attributes like: building use,
+construction type or construction year (see Table~\ref{tab:attributes}). The
 latter is an attribute that is not available for every building in the
 database. Table~\ref{tab:data} list the share of buildings with an unknown
 construction year in the 2010 digital cadastre. 30\% of all buildings and 51\%
@@ -198,9 +198,9 @@ rest of the building of the digital cadastre.\\
         & & & \textbf{from total} & \textbf{residential}\\
         \midrule
                                 Records on the digital cadastre. & 369~416 & 100\% & / \\
-\hspace{0.2cm} \ding{253} \dots with a known construction year& 110~845 & \textbf{30\%} & / \\
+\hspace{0.2cm} \ding{253} \dots with a known construction year & 110~845 & \textbf{30\%} & / \\
 \hspace{0.2cm} \ding{253} \dots residential buildings& 194~996 & 53\% & 100\%\\
-\hspace{0.8cm} \ding{253} \dots with a known construction year& 98~504  & 27\% & \textbf{51\%}\\
+\hspace{0.8cm} \ding{253} \dots with a known construction year & 98~504  & 27\% & \textbf{51\%}\\
 \bottomrule
     \end{tabular}
 \end{table}
@@ -217,7 +217,7 @@ shapely package) and in the PostgreSQL database for the definition of
 neighbourhoods.\\ 
 
 In the presented paper we interpret the data set as a pandas data frame. This
-is possible because the building sample is relative small with 1757 buildings.
+is possible because the building sample is relative small with 1,757 buildings.
 In order to process larger amounts of data we make use of the PostgreSQL
 database from which we read the needed input data and write the estimated new
 data.\\
@@ -235,10 +235,9 @@ generate the hdf file for information purposes.\\
 Mechanism}
 
 On this section we present the main components of the developed model. First we
-describes the definition of neighbourhoods within the selected building sample.
-We define this neighborhoods within the PostgreSQL database in order to take
-advantage of the advance spatial indexing of the database. With the
-neighbourhood define we present the main algorithm used for the definition of
+define the neighborhoods of our building sample within the PostgreSQL database to take
+advantage of the advanced spatial indexing of the database. With the
+neighbourhood defined we present the main algorithm used for the definition of
 the diffusion model, On a next step we rank each neighbour according to its
 characteristics for the estimation of construction years. We end the main
 section of the paper by discussing the results and proposing further
@@ -247,12 +246,12 @@ improvements for the model.\\
 \subsection{Definition of k-nearest Neighbours}
 
 An essential component of the diffusion model is the definition of a
-neighborhood. There are many ways to define a neighbourhood. In this example we
-have a simple static definition of neighbourhood. We allocate neighbours to
+neighborhood. There are many ways to define a neighborhood. In this example we
+have a simple static definition of neighborhood. We allocate neighbours to
 each element within our PostgreSQL database. The definition of neighbourhood is
 created as a function of two variables. The first variable is the radius
 $r$ to select possible neighbours and the second the amount of neighbours
-$k$ to select. Because the definition of this neighbourhood is rather simple we
+$k$ to select. Because the definition of this neighborhood is rather simple we
 can define it within the spatial database, we make this via an SQL script. This
 script is performed for each building in the database.\\
 
@@ -280,21 +279,21 @@ script is performed for each building in the database.\\
     $r=100$}\label{fig:k-nearest}
 \end{figure}
 
-The developed scripts for the definition of neighbourhoods is described on
+The developed scripts for the definition of neighborhoods is described on
 scrips \verb|spatialQNeighbours.sql|. On this scripts the radius is set to
 $r=500$ meters (see code line 10) and the number of buildings, define as the
 nearest $k$ neighbours is set to $k=30$ on the last code line. The SQL script
 selects the first $k$ elements because the elements are sorted by euclidean
-distance to the selected building for which we are defining the neighbourhood.
+distance to the selected building for which we are defining the neighborhood.
 The variable within this SQL script is the selected building \verb|UUID|, in
 this case the \verb|UUID| is set to \verb|DEHHALKA10000w1Y|.\\
 
-A graphical representation of the neighbourhood definition is depicted on
+A graphical representation of the neighborhood definition is depicted on
 Figure~\ref{fig:k-nearest}. In this case we define the radius $r=100$ and
-selected the nearest 10 buildings $k=10$. This neighbourhood definition is
+selected the nearest 10 buildings $k=10$. This neighborhood definition is
 static because it is equal for every single building in the database, in the
 final section of this paper we argue for a more elaborated definition of
-neighborhood. In order to develop more elaborated neighbourhood definitions we
+neighborhood. In order to develop more elaborated neighborhood definitions we
 need a systematic mechanism to asses the performance of the different
 definitions. For the presented paper the definition of a neighborhood is not
 central as we aim to focus on the diffusion algorithm itself, a more elaborated
@@ -304,19 +303,19 @@ diffusion model.\\
 \subsection{Diffusion Model in Python}
 
 In the following section we present the developed model and discuss the
-individual model components used in the model. The individual components used
-in the model have been arrange as python function and each function is define
-within an individual python file. This arrangement has been chosen in order to
-easy the reader search for a specific model component, a disadvantage of this
-arrangement is that it created some small redundancies within the model. An
-implementation example of the individual components of the model is presented
-as an \textbf{ipython-notebook} file. The file can be visualize within the
+individual model components used therein. The individual components
+have been arranged as python function and each function is defined
+within an individual python file. This arrangement has been chosen to
+ease the reader's search for a specific model component, a disadvantage of this
+arrangement are some small redundancies within the model. An
+implementation example of the model's individual components is presented
+as an \textbf{ipython-notebook} file. The file can be visualized within the
 github repository under:
 \url{https://github.com/emunozh/ConstructionYearTechRep/blob/master/Main.ipynb}
-but the reader wont be able to run the file. In order to run the file and the
+but the reader won't be able to run the file. To run the file and the
 individual scripts the reader will have to download the repository and
 configure a python environment with the required libraries listed on the home
-page of the repository. We also provide the small data-set used in this paper
+page of the repository. We also provide the small data set used in this paper
 as a hdf (high density format) file. The file can be directly imported as a
 pandas dataframe.\\
 
