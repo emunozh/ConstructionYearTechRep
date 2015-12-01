@@ -338,7 +338,7 @@ frame by index, the function can pass SQL commands to the spatial database in
 the case of missing neighbours of the pandas data frame. The implementation of
 this function is not further discuss on this paper.\\
 
-In this paper we present two functions than can be used as the
+In this paper we present two functions that can be used as the
 \verb|_estimateByear| function depending on how the libraries are imported into
 the \verb|_getByear| script. The two functions use: (1) a simple median
 computation of all known construction years of the building neighbours and
@@ -349,7 +349,7 @@ the python file with the same name. The function takes two parameters as
 input: (1) a row of the original building sample (a row of the pandas data
 frame) i.e.\ an individual building; and (2) the entire data sample, needed to
 fetch the predefined neighbours. This script will simply take the median from
-all neighbours with a know construction year as the estimated construction
+all neighbors with a know construction year as the estimated construction
 year.
 %
 A possible extension to this function would be to estimate the construction
@@ -357,12 +357,12 @@ year as a weighted median based on distance and characteristics of the
 neighbours.
 %
 We expand the algorithm into a ranking algorithm that will take into account
-distance and characteristics of the buildings but does not use a madian for the
+distance and characteristics of the buildings but does not use a median for the
 estimation of construction year.
 %
 The biggest problem with this method is that the algorithm assumes a dominance
 of the neighbourhood for the estimation of the unknown construction year. In
-the presented graphical representation of the neighbourhood definition
+the presented graphical representation of the neighborhood definition
 (Figure~\ref{fig:k.neares}) it is clear to see to which building ensemble the
 selected building corresponds, an estimation of its construction year would
 clearly be wrong. We aim to estimate the construction year of all buildings by
@@ -371,14 +371,14 @@ selecting the closest and most similar building to the selected one.
 
 \subsection{A Ranking Algorithm}
 
-In order to define which building the most similar building is, we use the
+In order to define which building the most similar one is, we use the
 available building attributes from the digital cadastre to rank them based on
 the absolute difference to the selected building.
 %
 The available and used characteristics from the digital cadastre are listed on
 Table~\ref{tab:attributes}. Below we make a small description of the used
 attributes and comment on how the data is interpret in order to rank the
-neighbours.
+neighbors.
 %
 The implemented code is presented on File \verb|_getNeighbours.py|.
 \\
@@ -394,7 +394,7 @@ The implemented code is presented on File \verb|_getNeighbours.py|.
         \midrule
         Construction type             & BAW         & Categorical     & * as dummy variable\\
         Building function             & GFK         & Categorical     & * as dummy variable\\
-        ID of k nearest neighbours    & neighbours  & Array           & * euclidean distance\\
+        ID of k nearest neighbours    & neighbors   & Array           & * euclidean distance\\
         Geometry of the building      & geometry    & Shapely Polygon & * euclidean distance\\
         \bottomrule
     \end{tabular}
@@ -483,7 +483,7 @@ N_{i,j,gfk} =
 %                 \vspace{0.8cm}
 
 With the computed individual distance measures from the building attributes we
-compute a rank for each neighbour $j$ of building $i$. The rank is computes as
+compute a rank for each neighbor $j$ of building $i$. The rank is computed as
 the percentage sum of all the computed distances, the mathematical expression
 of the computed rank is presented on Equation~\ref{eq:rank}.
 
@@ -493,27 +493,28 @@ of the computed rank is presented on Equation~\ref{eq:rank}.
 
 An example of the ranking algorithm is depicted on Figure~\ref{fig:rank}. The
 figure shows the ranking of each predefine neighbour for a random selected
-building of the sample. Each building is ranked on a scale from 1 to 0. The
-lower the value the higher the similitude to the selected building.
+building of the sample. Each building is ranked on a scale from 1 to 0.
+% scale max is missing here - 0 can't be right
+The lower the value the higher the similitude to the selected building.
 %
 The corresponding values for this neighborhood are listed on
 Table~\ref{tab:rank}.
 %
 The ranking
 algorithm does not differentiate between attributes, each attribute has the
-same weight to the final ranking of the neighbour. On a more elaborated
+same weight to the final ranking of the neighbor. On a more elaborated
 algorithm the weighting of attributes could be modified globally of dynamically
 depending of the characteristics of context of the selected building or based
 of available training data. Similar to the definition of the neighbourhood such
 a elaborated algorithm can only be assessed within a systematic comparison of
 different implementations. The implementation of the ranking computation
-occurs within the neighbourhood definition (see
+occurs within the neighborhood definition (see
 File~\verb|_getNeighbours.py|), the function using the computed rank called
 \verb|_estimateByearRank| is presented on
 File~\verb|lst:_estimateByearRank.py|.
 %
-The algorithm will simple take the minimum value and define its construction
-year from the selected neighbour. Within this algorithm we could define a
+The algorithm will simply take the minimum value and define its construction
+year from the selected neighbor. Within this algorithm we could define a
 maximum allowed ranking. This value could be estimated by statistical means
 based on a robust sample with known construction years or computed through a
 calibration method with a predefined training data set.
@@ -576,7 +577,7 @@ construction years for of each iteration (see Figure~\ref{fig:buildings_cy}).\\
 On this example the algorithm can't estimate a construction year for each
 building. This is because the neighborhood definition is performed for the
 entire city, leaving the building at the edge of the sample without a
-neighbourhood. The implementation of this algorithm only looks for neighbouring
+neighborhood. The implementation of this algorithm only looks for neighbouring
 buildings within the preselected sample, the implemented algorithm within an
 under developing agent based model will fetch the missing buildings from the
 PostgreSQL database. There might also be problems with the neighborhood
@@ -639,7 +640,7 @@ direction. Available data of the urban context like streets should be included
 in the algorithm to decide the diffusion direction. On the east side of the
 building sample we can clearly identify a red section of buildings. The urban
 fabric of this section of the city is not constructed along a north-south axis
-but rather on a east-west axis. A island of buildings arranged from north to
+but rather on a east-west axis. An island of buildings arranged from north to
 south is rather unlikely for this particular urban setting. The introduction of
 street data into the algorithm could help with this inconsistencies.\\
 
